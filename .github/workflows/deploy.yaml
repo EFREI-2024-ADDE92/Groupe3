@@ -15,19 +15,19 @@ jobs:
 
     - name: 'Login via Azure CLI'
       uses: azure/login@v1
-         with:
-           creds: ${{ secrets.AZURE_CREDENTIALS }}
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
 
     - name: Login to ACR
          run: |
            az acr login --name ${{ secrets.REGISTRY_LOGIN_SERVER }}
 
     - name: 'Build and push image'
-         uses: azure/docker-login@v1
-         with:
-           login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
-           username: ${{ secrets.REGISTRY_USERNAME }}
-           password: ${{ secrets.REGISTRY_PASSWORD }}
+      uses: azure/docker-login@v1
+      with:
+        login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
+        username: ${{ secrets.REGISTRY_USERNAME }}
+        password: ${{ secrets.REGISTRY_PASSWORD }}
 
     - run: |
            docker build -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/model_groupe3:v1

@@ -1,4 +1,4 @@
-ucimlrepo
 joblib
-Flask==2.0.2
-scikit-learn==0.24.2
+Flask==2.1.2
+Werkzeug==2.0.2
+scikit-learn

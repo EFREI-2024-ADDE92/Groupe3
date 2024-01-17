@@ -20,8 +20,7 @@ jobs:
       uses: docker/setup-buildx-action@v1
 
     - name: Login to Azure Container Registry
-      run: | 
-      az acr login --name ${{ secrets.REGISTRY_LOGIN_SERVER }} \
+      run: az acr login --name ${{ secrets.REGISTRY_LOGIN_SERVER }} \
                  --service-principal ${{ secrets.REGISTRY_USERNAME }} \
                  --username ${{ secrets.REGISTRY_USERNAME }} \
                  --password ${{ secrets.REGISTRY_PASSWORD }}

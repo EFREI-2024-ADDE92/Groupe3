@@ -28,7 +28,7 @@ jobs:
         docker buildx inspect --bootstrap
         docker buildx build \
           --platform linux/amd64,linux/arm64 \
-          -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ model_groupe3 }}:latest \
+          -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/model_groupe3:latest \
           .
 
-        docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ model_groupe3 }}:latest
+        docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/model_groupe3:latest

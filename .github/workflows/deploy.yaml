@@ -21,13 +21,14 @@ jobs:
     - name: Login to ACR
       run: az acr login --name ${{ secrets.REGISTRY_LOGIN_SERVER }}
 
-    - name: Create Azure container environment
-      run: az containerapp env create -n group3-container-env -g ${{ secrets.RESOURCE_GROUP }} --location francecentral
-
     - name: Build and push image
       run: |
         docker build . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/model_groupe3:v1
         docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/model_groupe3:v1
+
+    - name: Create Azure container environment
+      run: az containerapp env create -n group3-container-env -g ${{ secrets.RESOURCE_GROUP }} --location francecentral
+
 
     - name: Deploy to Azure Container
       run: |

@@ -17,6 +17,11 @@ jobs:
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
+        
+    - name: Build and push image
+      run: |
+        docker build . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/model_groupe3:v1
+        docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/model_groupe3:v1
 
     - name: Login to ACR
       run: az acr login --name ${{ secrets.REGISTRY_LOGIN_SERVER }}
@@ -28,7 +33,4 @@ jobs:
       run: |
         az containerapp create --resource-group ${{ secrets.RESOURCE_GROUP }} --name group3-container --image ${{ secrets.REGISTRY_LOGIN_SERVER }}/model_groupe3:v1 --cpu 1 --memory 2 --registry-server ${{ secrets.REGISTRY_LOGIN_SERVER }} --registry-username ${{ secrets.REGISTRY_USERNAME }} --registry-password ${{ secrets.REGISTRY_PASSWORD }} --ingress external --target-port 5000 --environment group3-container-env
 
-    - name: Build and push image
-      run: |
-        docker build . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/model_groupe3:v1
-        docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/model_groupe3:v1
+    

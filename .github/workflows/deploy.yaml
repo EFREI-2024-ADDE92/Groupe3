@@ -32,13 +32,3 @@ jobs:
       run: |
         docker build . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/model_groupe3:v1
         docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/model_groupe3:v1
-
-    - name: Build and deploy Container App
-      uses: azure/container-apps-deploy-action@v2
-      with:
-        appSourcePath: ${{ github.workspace }}
-        #acrName: ${{ secrets.REGISTRY_LOGIN_SERVER }}
-        containerAppName: group3-container
-        resourceGroup: ${{ secrets.RESOURCE_GROUP }}
-        imageToDeploy: ${{ secrets.REGISTRY_LOGIN_SERVER }}/model_groupe3:v1
-        location: 'francecentral'

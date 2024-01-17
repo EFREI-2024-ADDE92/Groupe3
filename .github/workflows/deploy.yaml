@@ -41,4 +41,4 @@ jobs:
         containerAppName: group-3-container
         resourceGroup: ${{ secrets.RESOURCE_GROUP }}
         imageToDeploy: ${{ secrets.REGISTRY_LOGIN_SERVER }}/model_groupe3:v1
-        location: 'francecentral'
+        location: 'francecentral' 

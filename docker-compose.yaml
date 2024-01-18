@@ -1,7 +1,7 @@
 version: '3'
 
 networks:
-  iris-prdiction-api-network:
+  iris-prediction-api-network:
     driver: bridge
 
 services:
@@ -13,14 +13,14 @@ services:
     ports:
       - "5000:5000"
     networks:
-      - iris-prdiction-api-network
+      - iris-prediction-api-network
 
   prometheus:
     image: prom/prometheus:latest
     ports:
       - "9000:9000"
     networks:
-      - iris-prdiction-api-network
+      - iris-prediction-api-network
     environment:
       - TZ=Europe/Paris
     volumes:

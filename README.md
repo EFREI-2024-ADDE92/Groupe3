@@ -30,10 +30,10 @@ az acr repository list --name efreibigdata.azurecr.io --output table
 k6 run -e MY_URL=https://group3-container.salmonwater-c5230928.francecentral.azurecontainerapps.io/predict/test_charge.js
 
 #Test predict on the app
-curl -X POST https://group3-container.salmonwater-c5230928.francecentral.azurecontainerapps.io/predict -H 'Content-Type: application/json' -d '{"sepal_length": 5.1, "sepal_width": 3.5, "petal_length": 1.4, "petal_width": 0.2}'
+curl -X GET https://group3-container.salmonwater-c5230928.francecentral.azurecontainerapps.io/predict -H 'Content-Type: application/json' -d '{"sepal_length": 5.1, "sepal_width": 3.5, "petal_length": 1.4, "petal_width": 0.2}'
 
 #Faire 10 requetes pour tester l'autoscaling
-for i in {1..10}; do curl -X POST https://group3-container.salmonwater-c5230928.francecentral.azurecontainerapps.io/predict -H 'Content-Type: application/json' -d '{"sepal_length": 5.1, "sepal_width": 3.5, "petal_length": 1.4, "petal_width": 0.2}'; done
+for i in {1..10}; do curl -X GET https://group3-container.salmonwater-c5230928.francecentral.azurecontainerapps.io/predict -H 'Content-Type: application/json' -d '{"sepal_length": 5.1, "sepal_width": 3.5, "petal_length": 1.4, "petal_width": 0.2}'; done
 
 #Tester prometheus
 curl https://group3-container4.salmonmoss-cbec6b1b.francecentral.azurecontainerapps.io/metrics

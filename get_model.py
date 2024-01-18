@@ -23,18 +23,17 @@ def species_mapping(prediction):
 @app.route('/predict', methods=['POST'])
 def predict():
     try:
-        # Get input data from the request
+        #Get input data from the request
         data = request.get_json()
 
-        # Assuming the input data is in the same format as the Iris dataset
+        #Assuming the input data is in the same format as the Iris dataset
         features = np.array(data['features']).reshape(1, -1)
     
-        # Make predictions
+        #Make predictions
         prediction = model.predict(features)
         prediction = species_mapping(prediction)
         api_call_counter.inc()
 
-        # Return the prediction as JSON
         return jsonify({'prediction': (prediction)})
 
     except Exception as e:
@@ -42,7 +41,7 @@ def predict():
     
 @app.route('/metrics')
 def metrics():
-    # Expose the metrics in Prometheus format
+    #Expose the metrics in Prometheus format
     return Response(generate_latest(REGISTRY), content_type='text/plain; version=0.0.4')
 
 

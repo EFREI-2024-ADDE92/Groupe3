@@ -33,7 +33,7 @@ services:
     ports:
       - "3000:3000"
     networks:
-      - iris-api-net
+      - iris-prediction-api-network
     env_file:
         - .env
     volumes:

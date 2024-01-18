@@ -46,3 +46,13 @@ jobs:
           --scale-rule-http-concurrency 5 \
           --min-replicas 1 \
           --max-replicas 10
+
+    - name: Launch Prometheus
+      run: |
+        docker run -d -p 9000:9000 --name prometheus prom/prometheus
+
+    - name: Wait for services to start
+      run: sleep 10
+
+    - name: Display Prometheus Containers
+      run: docker ps

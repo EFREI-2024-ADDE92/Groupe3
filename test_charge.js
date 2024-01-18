@@ -7,7 +7,7 @@ export let options = {
 };
 
 export default function () {
-  const url = 'https://group3-container4.salmonmoss-cbec6b1b.francecentral.azurecontainerapps.io/predict';
+  const url = 'https://group3-container.salmonwater-c5230928.francecentral.azurecontainerapps.io/predict';
 
   const payload = { "features": [5.1, 3.5, 1.4, 0.2] }
 

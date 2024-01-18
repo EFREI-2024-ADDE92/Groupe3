@@ -26,8 +26,14 @@ def predict():
         #Get input data from the request
         data = request.get_json()
 
+        # inputs from user for each of these features
+        sepal_length = data.get('sepal_length')
+        sepal_width = data.get('sepal_width')
+        petal_length = data.get('petal_length')
+        petal_width = data.get('petal_width')
+
         #Assuming the input data is in the same format as the Iris dataset
-        features = np.array(data['features']).reshape(1, -1)
+        features = np.array([sepal_length, sepal_width, petal_length, petal_width]).reshape(1, -1)
     
         #Make predictions
         prediction = model.predict(features)

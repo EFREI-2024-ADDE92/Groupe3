@@ -30,10 +30,10 @@ az acr repository list --name efreibigdata.azurecr.io --output table
 k6 run -e MY_URL=https://group3-container.graycoast-fbecffe8.francecentral.azurecontainerapps.io/predict/test_charge.js
 
 #Faire 10 requetes pour tester l'autoscaling
-for i in {1..10}; do curl -X POST https://group3-container.graycoast-fbecffe8.francecentral.azurecontainerapps.io/predict -H 'Content-Type: application/json' -d '{"features": [5.1, 3.5, 1.4, 0.2]}'; done
+for i in {1..10}; do curl -X POST https://group3-container4.salmonmoss-cbec6b1b.francecentral.azurecontainerapps.io/predict -H 'Content-Type: application/json' -d '{"features": [5.1, 3.5, 1.4, 0.2]}'; done
 
 #Tester prometheus
-curl https://group3-container.graycoast-fbecffe8.francecentral.azurecontainerapps.io/metrics
+curl https://group3-container4.salmonmoss-cbec6b1b.francecentral.azurecontainerapps.io/metrics
 
 #Filter les metrics
 curl https://group3-container.graycoast-fbecffe8.francecentral.azurecontainerapps.io/metrics | grep 'api_calls_total'

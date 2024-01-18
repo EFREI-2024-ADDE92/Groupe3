@@ -39,12 +39,8 @@ jobs:
         az containerapp update \
           --name group3-container \
           --resource-group ${{ secrets.RESOURCE_GROUP }} \
-          --scale "minReplicas=1" \
-          --scale "maxReplicas=10"
-
-        az containerapp update \
-          --name group3-container \
-          --resource-group ${{ secrets.RESOURCE_GROUP }} \
           --scale-rule-name http-scale-rule \
           --scale-rule-http-concurrency 5
+          --min-replicas 1 \
+          --max-replicas 10
           

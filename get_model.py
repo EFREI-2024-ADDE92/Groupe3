@@ -1,4 +1,5 @@
 import numpy as np
+from collections import OrderedDict
 import joblib
 from flask import Flask, request, Response, jsonify
 from prometheus_client import Counter, generate_latest, REGISTRY
@@ -40,17 +41,17 @@ def predict():
         prediction = species_mapping(prediction)
         api_call_counter.inc()
 
-        response_json = {
-            'Your Input Features': {
-                'Sepal Length': sepal_length,
-                'Sepal Width': sepal_width,
-                'Petal Length': petal_length,
-                'Petal Width': petal_width
-            },
-            'Predicted Specie': prediction
-        }
+        response_dict = OrderedDict([
+            ('Your Input Features', OrderedDict([
+                ('Sepal Length', sepal_length),
+                ('Sepal Width', sepal_width),
+                ('Petal Length', petal_length),
+                ('Petal Width', petal_width),
+            ])),
+            ('Predicted Specie', prediction)
+        ])
 
-        return jsonify(response_json)
+        return jsonify(response_dict)
 
     except Exception as e:
         return jsonify({'error': str(e)})

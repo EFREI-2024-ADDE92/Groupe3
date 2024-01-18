@@ -43,6 +43,6 @@ jobs:
           --name group3-container4 \
           --resource-group ${{ secrets.RESOURCE_GROUP }} \
           --scale-rule-name http-scale-rule \
-          --scale-rule-http-concurrency 5
-          --min-replicas 1 
+          --scale-rule-http-concurrency 5 \
+          --min-replicas 1 \
           --max-replicas 10

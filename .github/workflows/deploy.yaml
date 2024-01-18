@@ -19,9 +19,12 @@ jobs:
 
     - name: Login to ACR
       run: az acr login --name ${{ secrets.REGISTRY_LOGIN_SERVER }}
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-    - name: Build and push image
+    - name: Login to ACR, Build and push image
       run: |
+        az acr login --name ${{ secrets.REGISTRY_LOGIN_SERVER }}
         docker build . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/model_groupe3:v1
         docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/model_groupe3:v1
 

@@ -17,14 +17,16 @@ jobs:
       run: docker run --rm -i hadolint/hadolint < Dockerfile
       continue-on-error: true
 
-    - name: Login to ACR
-      run: az acr login --name ${{ secrets.REGISTRY_LOGIN_SERVER }}
+    - name: 'Login via Azure CLI'
+      uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-    - name: Login to ACR, Build and push image
+    - name: Login to ACR
+      run: az acr login --name ${{ secrets.REGISTRY_LOGIN_SERVER }}
+
+    - name: Build and push image
       run: |
-        az acr login --name ${{ secrets.REGISTRY_LOGIN_SERVER }}
         docker build . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/model_groupe3:v1
         docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/model_groupe3:v1
 

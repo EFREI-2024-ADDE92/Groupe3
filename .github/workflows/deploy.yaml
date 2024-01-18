@@ -41,8 +41,8 @@ jobs:
           --resource-group ${{ secrets.RESOURCE_GROUP }} \
           --scale-rule-name http-scale-rule \
           --scale-rule-http-concurrency 5
-          
-      az containerapp update \
+
+        az containerapp update \
           --name group3-container \
           --resource-group ${{ secrets.RESOURCE_GROUP }} \
           --scale-rule-name replica-count-rule \

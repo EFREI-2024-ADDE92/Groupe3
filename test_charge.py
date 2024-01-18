@@ -6,7 +6,7 @@ class MyUser(HttpUser):
     @task
     def predict_endpoint(self):
         # Define your request to the prediction endpoint
-        self.client.post("https://group3-container.graycoast-fbecffe8.francecentral.azurecontainerapps.io/predict", json={"features": [5.1, 3.5,1.4, 0.2]})
+        self.client.post("https://group3-container4.salmonmoss-cbec6b1b.francecentral.azurecontainerapps.io/predict", json={"features": [5.1, 3.5,1.4, 0.2]})
 
 # Create 10 users
 class WebsiteUser(HttpUser):

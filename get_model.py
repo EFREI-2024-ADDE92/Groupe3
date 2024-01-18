@@ -1,9 +1,12 @@
-from flask import Flask, request, jsonify
-import joblib
 import numpy as np
+import joblib
+from flask import Flask, request, Response, jsonify
+from prometheus_client import Counter, generate_latest, REGISTRY
 
 
 app = Flask(__name__)
+
+api_call_counter = Counter('api_calls_total', 'Total number of API calls')
 
 # Load the trained model
 model = joblib.load('./model.pkl')
@@ -35,6 +38,12 @@ def predict():
 
     except Exception as e:
         return jsonify({'error': str(e)})
+    
+@app.route('/metrics')
+def metrics():
+    # Expose the metrics in Prometheus format
+    return Response(generate_latest(REGISTRY), content_type='text/plain; version=0.0.4')
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')

@@ -40,7 +40,8 @@ def predict():
         prediction = species_mapping(prediction)
         api_call_counter.inc()
 
-        return jsonify({'prediction': (prediction)})
+        return jsonify({'Your Input Features': {'Sepal Length': sepal_length, 'Sepal Width': sepal_width, 'Petal Length': petal_length, 'Petal Width': petal_width},
+                        'Predicted Specie': prediction})
 
     except Exception as e:
         return jsonify({'error': str(e)})

@@ -32,6 +32,7 @@ def predict():
         # Make predictions
         prediction = model.predict(features)
         prediction = species_mapping(prediction)
+        api_call_counter.inc()
 
         # Return the prediction as JSON
         return jsonify({'prediction': (prediction)})

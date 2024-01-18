@@ -21,7 +21,7 @@ def species_mapping(prediction):
         prediction = "Iris virginica"
     return prediction
 
-@app.route('/predict', methods=['POST'])
+@app.route('/predict', methods=["GET"])
 def predict():
     try:
         #Get input data from the request

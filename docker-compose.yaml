@@ -1,0 +1,33 @@
+version: '3'
+
+networks:
+  iris-prdiction-api-network:
+    driver: bridge
+
+services:
+
+  iris-prdiction-api:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    networks:
+      - iris-prdiction-api-network
+
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9000:9000"
+    networks:
+      - iris-prdiction-api-network
+    environment:
+      - TZ=Europe/Paris
+    volumes:
+      - ./prometheus:/etc/prometheus
+      - prometheus_data:/prometheus
+    command: --web.enable-lifecycle --config.file=/etc/prometheus/prometheus.yaml
+
+
+volumes:
+  prometheus_data:

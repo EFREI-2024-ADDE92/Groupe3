@@ -16,7 +16,7 @@ def species_mapping(prediction):
     if prediction == float(0) :
         prediction = "Iris setosa"
     elif prediction == float(1) :
-        prediction = "Iris versicolor"
+        prediction = "Iris versicolor" 
     else :
         prediction = "Iris virginica"
     return prediction

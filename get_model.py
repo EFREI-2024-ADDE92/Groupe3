@@ -10,7 +10,7 @@ app = Flask(__name__)
 api_call_counter = Counter('api_calls_total', 'Total number of API calls')
  
 # Load the trained model
-model = joblib.load('C:/Users/kevin/Downloads/model.pkl')
+model = joblib.load('./model.pkl')
  
 def species_mapping(prediction):
     if prediction == float(0) :

@@ -3,15 +3,15 @@ from collections import OrderedDict
 import joblib
 from flask import Flask, request, Response, jsonify
 from prometheus_client import Counter, generate_latest, REGISTRY
-
-
+ 
+ 
 app = Flask(__name__)
-
+ 
 api_call_counter = Counter('api_calls_total', 'Total number of API calls')
-
+ 
 # Load the trained model
-model = joblib.load('./model.pkl')
-
+model = joblib.load('C:/Users/kevin/Downloads/model.pkl')
+ 
 def species_mapping(prediction):
     if prediction == float(0) :
         prediction = "Iris setosa"
@@ -20,27 +20,25 @@ def species_mapping(prediction):
     else :
         prediction = "Iris virginica"
     return prediction
-
+ 
 @app.route('/predict', methods=["POST"])
 def predict():
     try:
         #Get input data from the request
-        data = request.get_json()
-
+ 
         # inputs from user for each of these features
-        sepal_length = data.get('sepal_length')
-        sepal_width = data.get('sepal_width')
-        petal_length = data.get('petal_length')
-        petal_width = data.get('petal_width') 
-
+        sepal_length = request.args.get('sepal_length')
+        sepal_width = request.args.get('sepal_width')
+        petal_length = request.args.get('petal_length')
+        petal_width = request.args.get('petal_width')
+ 
         #Assuming the input data is in the same format as the Iris dataset
-        features = np.array([sepal_length, sepal_width, petal_length, petal_width]).reshape(1, -1)
-    
+        features = np.array([float(sepal_length), float(sepal_width), float(petal_length), float(petal_width)]).reshape(1, -1)
         #Make predictions
         prediction = model.predict(features)
         prediction = species_mapping(prediction)
         api_call_counter.inc()
-
+ 
         response_dict = OrderedDict([
             ('Your Input Features', OrderedDict([
                 ('Sepal Length', sepal_length),
@@ -50,17 +48,16 @@ def predict():
             ])),
             ('Predicted Specie', prediction)
         ])
-
+ 
         return jsonify(response_dict)
-
+ 
     except Exception as e:
         return jsonify({'error': str(e)})
-    
 @app.route('/metrics')
 def metrics():
     #Expose the metrics in Prometheus format
     return Response(generate_latest(REGISTRY), content_type='text/plain; version=0.0.4')
-
-
+ 
+ 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')

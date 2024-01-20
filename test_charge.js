@@ -9,7 +9,12 @@ export let options = {
 export default function () {
   const url = 'https://group3-container.bluesmoke-5ac04595.francecentral.azurecontainerapps.io/predict';
 
-  const payload = { "features": [5.1, 3.5, 1.4, 0.2] }
+  const payload = {
+    sepal_length: 5.1,
+    sepal_width: 3.5,
+    petal_length: 1.4,
+    petal_width: 0.2
+  };
 
   const headers = {
     'Content-Type': 'application/json'

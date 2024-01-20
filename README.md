@@ -44,6 +44,8 @@ az acr repository list --name efreibigdata.azurecr.io --output table
 k6 run -e MY_URL=https://group3-container.bluesmoke-5ac04595.francecentral.azurecontainerapps.io/predict/test_charge.js
 ```
 
+![k6](https://github.com/EFREI-2024-ADDE92/Groupe3/assets/113598387/af99bf38-3bf7-4dbb-95b0-506908030dab)
+
 - Test predict on the app
 ```
 curl -X POST "https://group3-container.bluesmoke-5ac04595.francecentral.azurecontainerapps.io/predict?sepal_length=5.0&sepal_width=2.1&petal_length=2.4&petal_width=3.2"

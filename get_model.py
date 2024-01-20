@@ -31,7 +31,7 @@ def predict():
         sepal_length = data.get('sepal_length')
         sepal_width = data.get('sepal_width')
         petal_length = data.get('petal_length')
-        petal_width = data.get('petal_width')
+        petal_width = data.get('petal_width') 
 
         #Assuming the input data is in the same format as the Iris dataset
         features = np.array([sepal_length, sepal_width, petal_length, petal_width]).reshape(1, -1)

@@ -18,7 +18,7 @@ services:
   prometheus:
     image: prom/prometheus:latest
     ports:
-      - "9000:9000"
+      - "9090:9090"
     networks:
       - iris-prediction-api-network
     environment:
@@ -34,8 +34,6 @@ services:
       - "3000:3000"
     networks:
       - iris-prediction-api-network
-    env_file:
-        - .env
     volumes:
       - ./grafana:/var/lib/grafana
       - ./grafana-provisioning:/etc/grafana/provisioning
@@ -44,4 +42,4 @@ services:
 
 volumes:
   prometheus_data:
-  grafana_data:
+  grafana_data

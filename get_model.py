@@ -53,6 +53,7 @@ def predict():
  
     except Exception as e:
         return jsonify({'error': str(e)})
+
 @app.route('/metrics')
 def metrics():
     #Expose the metrics in Prometheus format

@@ -11,7 +11,7 @@ app = Flask(__name__)
 api_call_counter = Counter('api_calls_total', 'Total number of API calls')
 
 # Gauge pour le nombre de requêtes continuellement dans le temps
-continuous_api_calls = Gauge('continuous_api_calls', 'Number of continuous API calls')
+continuous_api_calls = Counter('continuous_calls_total', 'Number of continuous API calls')
 
 # Variable pour stocker le timestamp de la dernière requête
 last_request_timestamp = None
@@ -48,6 +48,7 @@ def predict():
 
         # Increment total API calls counter
         api_call_counter.inc()
+        continuous_api_calls.inc()
 
         # Check and update continuous API calls gauge
         current_timestamp = time.time()

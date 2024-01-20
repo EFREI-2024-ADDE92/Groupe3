@@ -10,12 +10,6 @@ app = Flask(__name__)
 # Counter pour le nombre total de requêtes
 api_call_counter = Counter('api_calls_total', 'Total number of API calls')
 
-# Gauge pour le nombre de requêtes continuellement dans le temps
-continuous_api_calls = Counter('continuous_calls_total', 'Number of continuous API calls')
-
-# Variable pour stocker le timestamp de la dernière requête
-last_request_timestamp = None
-
 # Load the trained model
 model = joblib.load('./model.pkl')
 
@@ -46,17 +40,7 @@ def predict():
         prediction = model.predict(features)
         prediction = species_mapping(prediction)
 
-        # Increment total API calls counter
         api_call_counter.inc()
-        continuous_api_calls.inc()
-
-        # Check and update continuous API calls gauge
-        current_timestamp = time.time()
-        if last_request_timestamp is not None:
-            time_since_last_request = current_timestamp - last_request_timestamp
-            continuous_api_calls.set(1 if time_since_last_request <= 600 else 0)
-
-        last_request_timestamp = current_timestamp
 
         response_dict = OrderedDict([
             ('Your Input Features', OrderedDict([

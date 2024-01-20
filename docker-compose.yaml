@@ -6,7 +6,7 @@ networks:
 
 services:
 
-  iris-prdiction-api:
+  iris-prediction-api:
     build: 
       context: .
       dockerfile: Dockerfile

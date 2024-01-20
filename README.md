@@ -7,7 +7,7 @@ Kevin ESTEVES
 
 #Créer l'application du modèle et faire une requete pour une prédiction
 (Langer d'abord get_model.py)
-curl -X POST -H "Content-Type: application/json" -d '{"features": [5.1, 3.5, 1.4, 0.2]}' http://127.0.0.1:5000/predict
+curl -X POST "http://127.0.0.1:5000/predict?sepal_length=5.0&sepal_width=2.1&petal_length=2.4&petal_width=3.2"
 
 #Build docker image
 docker build -t model_groupe3 .
@@ -27,17 +27,16 @@ docker push efreibigdata.azurecr.io/model_groupe3:latest
 az acr repository list --name efreibigdata.azurecr.io --output table
 
 #Test charge (k6 avec js)
-k6 run -e MY_URL=https://group3-container.wonderfulgrass-bde88d46.francecentral.azurecontainerapps.io/predict/test_charge.js
+k6 run -e MY_URL=https://group3-container.bluesmoke-5ac04595.francecentral.azurecontainerapps.io/predict/test_charge.js
 
 #Test predict on the app
-curl -X POST https://group3-container.wonderfulgrass-bde88d46.francecentral.azurecontainerapps.io/predict -H 'Content-Type: application/json' -d '{"sepal_length": 5.1, "sepal_width": 3.5, "petal_length": 1.4, "petal_width": 0.2}'
+curl -X POST "https://group3-container.bluesmoke-5ac04595.francecentral.azurecontainerapps.io/predict?sepal_length=5.0&sepal_width=2.1&petal_length=2.4&petal_width=3.2"
 
 #Faire 10 requetes pour tester l'autoscaling
-for i in {1..10}; do curl -X POST https://group3-container.wonderfulgrass-bde88d46.francecentral.azurecontainerapps.io/predict -H 'Content-Type: application/json' -d '{"sepal_length": 5.1, "sepal_width": 3.5, "petal_length": 1.4, "petal_width": 0.2}'; done
+for i in {1..10}; do curl -X POST "https://group3-container.bluesmoke-5ac04595.francecentral.azurecontainerapps.io/predict?sepal_length=5.0&sepal_width=2.1&petal_length=2.4&petal_width=3.2"; done
 
 #Tester prometheus
-curl https://group3-container.wonderfulgrass-bde88d46.francecentral.azurecontainerapps.io/metrics
+curl https://group3-container.bluesmoke-5ac04595.francecentral.azurecontainerapps.io/metrics
 
 #Filter les metrics
-curl https://group3-container.wonderfulgrass-bde88d46.francecentral.azurecontainerapps.io/metrics | grep 'api_calls_total'
-
+curl https://group3-container.bluesmoke-5ac04595.francecentral.azurecontainerapps.io/metrics | grep 'api_calls_total'
